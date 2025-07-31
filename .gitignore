@@ -172,7 +172,5 @@ wandb/
 prepared/
 lm-evaluation-harness/
 core
-*.pkl
 *.npy
 *.pt
-*.ipynb

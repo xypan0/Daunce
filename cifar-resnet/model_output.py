@@ -78,26 +78,15 @@ if __name__=='__main__':
         transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
     ])
     testset = torchvision.datasets.CIFAR10(
-        root='./data', train=False, download=True, transform=transform_test)
+        root='/tmp/cifar/', train=False, download=True, transform=transform_test)
     testloader = torch.utils.data.DataLoader(
         testset, batch_size=128, shuffle=False, num_workers=8)
     
     trainset = torchvision.datasets.CIFAR10(
-        root='./data', train=True, download=True, transform=transform_test)
+        root='/tmp/cifar/', train=True, download=True, transform=transform_test)
     
     random_indices = random.sample(range(len(testset)), int(len(testset)*0.3))
 
-    noisy_test_set=torchvision.datasets.CIFAR10(
-        root='./data', train=False, download=True, transform=transform_test)
-    for i in random_indices:
-        current_label = noisy_test_set.targets[i]
-        noisy_label = noisy_test_set.targets[i]
-        while noisy_label == current_label:
-            noisy_label = random.randint(0, 10 - 1)
-        noisy_test_set.targets[i] = noisy_label
-    noisy_test_loader = torch.utils.data.DataLoader(
-        noisy_test_set, batch_size=128, shuffle=False, num_workers=8)
-    
     trainloader = torch.utils.data.DataLoader(
         trainset, batch_size=128, shuffle=False, num_workers=8)
     

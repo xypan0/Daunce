@@ -142,13 +142,13 @@ if __name__ == '__main__':
     ])
 
     trainset = DatasetWithIdx(torchvision.datasets.CIFAR10(
-        root='./data', train=True, download=True, transform=transform_train))
+        root='/tmp/cifar/', train=True, download=True, transform=transform_train))
     train_subset = torch.utils.data.Subset(trainset, np.random.choice(len(trainset), int(len(trainset)*args.ratio), replace=False))
     trainloader = torch.utils.data.DataLoader(
         train_subset, batch_size=args.bsz, shuffle=False, num_workers=8)
 
     testset = torchvision.datasets.CIFAR10(
-        root='./data', train=False, download=True, transform=transform_test)
+        root='/tmp/cifar/', train=False, download=True, transform=transform_test)
     testloader = torch.utils.data.DataLoader(
         testset, batch_size=100, shuffle=False, num_workers=8)
     
@@ -224,7 +224,7 @@ if __name__ == '__main__':
             loss.backward()
             grad_norm = torch.nn.utils.clip_grad_norm_(net.parameters(), 1e9)
             base_loss = torch.sum(base_loss).detach() / base_loss.shape[0]
-            print(f'final loss: {loss:.2f}, first order: {fo:.2f}, base loss: {base_loss:.2f}, reg: {reg:.2f}, grad norm: {grad_norm}', flush=True)
+            # print(f'final loss: {loss:.2f}, first order: {fo:.2f}, base loss: {base_loss:.2f}, reg: {reg:.2f}, grad norm: {grad_norm}', flush=True)
 
             optimizer.step()
             scheduler.step()
