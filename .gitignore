@@ -174,3 +174,4 @@ lm-evaluation-harness/
 core
 *.npy
 *.pt
+checkpoints/

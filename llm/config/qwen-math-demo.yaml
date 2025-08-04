@@ -1,0 +1,61 @@
+# Model and Data settings
+model_name: Qwen/Qwen2.5-0.5B-Instruct # huggingface_model_name
+tokenizer_name: Qwen/Qwen2.5-0.5B-Instruct # huggingface_model_name
+model_mode: train
+
+# this is for daunce training
+data_name: AI-MO/NuminaMath-CoT # train dataset for perturbation model training, here we use a small dataset for demo
+train_split: test
+
+# this is for eval in mp training
+eval_data_name: AI-MO/NuminaMath-CoT # eval dataset for perturbation model training
+eval_split: test
+
+# the query
+query_data_name: AI-MO/NuminaMath-CoT # the query dataset in data attribution, here we use a small dataset for demo
+query_split: test
+
+# the all docs for influential subset selection
+train_data_name: AI-MO/NuminaMath-CoT # the training dataset in data attribution
+train_data_split: test
+
+data_type: conversation
+conversation_template: qwen2_5_math
+block_size: 512
+disable_group_texts: True
+padding_side: left
+
+# Training settings
+micro_batch_size: 8
+global_batch_size: 16
+epochs: 1
+max_steps: 1
+eval_freq: 1
+log_freq: 1
+bf16: True
+data_bootstrap: True
+
+# lora settings
+lora_rank: 64
+lora_alpha: 16
+
+# Logging & WandB
+use_wandb: True
+wandb_project: daunce-llm
+logging_conf_file: config/common.log_conf
+
+# embeddings config
+emb_model_mode: eval
+save_dtype: bfloat16
+
+# Checkpointing & Misc
+warmup_ratio: 0.03
+base_embedding_path: Qwen2.5-0.5B-Instruct-NuminaMath-embeddings.safetensors # use your own embedding path
+
+# Override by command line
+lr: 1e-3
+rho: 10
+gamma: 1
+pseudo_random: 1234
+wandb_run_name: null
+save_dir: null
